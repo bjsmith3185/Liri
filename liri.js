@@ -4,6 +4,10 @@
 var request = require("request");
 var Spotify = require('node-spotify-api');
 var keys = require("./keys.js");
+var moment = require("moment");
+var fs = require("fs");
+
+var cmd = require('node-cmd');
 
 // first user input -----
 var operation = process.argv[2];
@@ -24,11 +28,9 @@ if (userSearch.length === 4) {
 
 }
 
-
-
 if (operation === "concert-this") {
 
-    console.log("https://rest.bandsintown.com/artists/" + searchString + "/events?app_id=codingbootcamp")
+    // console.log("https://rest.bandsintown.com/artists/" + searchString + "/events?app_id=codingbootcamp")
     // https://rest.bandsintown.com/artists/drake/events?app_id=codingbootcamp
 
     request("https://rest.bandsintown.com/artists/" + searchString + "/events?app_id=codingbootcamp", function (error, response, body) {
@@ -36,10 +38,10 @@ if (operation === "concert-this") {
         // If the request is successful (i.e. if the response status code is 200)
         if (!error && response.statusCode === 200) {
             //   console.log(JSON.stringify(response, null, 2));
+            console.log("Artist(s): " + JSON.parse(body)[0].lineup);
             console.log("Venue: " + JSON.parse(body)[0].venue.name);
             console.log("Location: " + JSON.parse(body)[0].venue.city);
-            console.log("Date: " + JSON.parse(body)[0].datetime);
-            // * Date of the Event (use moment to format this as "MM/DD/YYYY")
+            console.log("Date: " + moment(JSON.parse(body)[0].datetime).format("MM/DD/YYYY"));
         };
 
     });
@@ -76,8 +78,6 @@ if (operation === "concert-this") {
         console.log("you didnt enter a song, so you get....");
         // load "ace of base" ------
         var spotify = new Spotify(keys.spotify);
-        
-    
         spotify.search({ type: 'track', query: "the sign", limit: 20 }, function(err, data) {
             if (err) {
               return console.log('Error occurred: ' + err);
@@ -85,26 +85,18 @@ if (operation === "concert-this") {
             var songData = data.tracks.items;
         // console.log(songData);
         for (var i = 0; i < songData.length; i++) {
-            
             // console.log(songData[i].artists[0].name);
             if ((songData[i].artists[0].name) === "Ace of Base") {
                 console.log("it matches");
                 console.log(`
                 Artist: ${songData[i].artists[0].name}
+                Song: ${song[0].name}
                 Album: ${songData[i].album.name}
                 Preview: ${songData[i].preview_url}`);
                 return;
             }
-            
         }
-           
-        
           });
-    
-
-
-
-
 
     } else {
         var spotify = new Spotify(keys.spotify);
@@ -126,10 +118,10 @@ if (operation === "concert-this") {
     
             console.log(`
             Artist: ${song[0].artists[0].name}
+            Song: ${song[0].name}
             Preview: ${song[0].preview_url}
             Album: ${song[0].album.name}`);
           });
-    
 
     }
 
@@ -140,6 +132,23 @@ if (operation === "concert-this") {
 
 } else if (operation === "do-what-it-says") {
 
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        if (error) {
+          return console.log(error);
+        }
+        var dataArr = data.split(",");
+
+        // console.log(dataArr[0]);
+        // console.log(dataArr[1]);
+
+        cmd.get(
+            `node liri.js ${dataArr[0]} ${dataArr[1]}`,
+            function(err, data, stderr){
+                console.log(data)
+            }
+      );
+
+    });
 };
 
 

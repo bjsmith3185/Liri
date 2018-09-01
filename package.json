@@ -18,8 +18,11 @@
   },
   "homepage": "https://github.com/bjsmith3185/Liri#readme",
   "dependencies": {
+    "cmd": "^0.1.0",
     "dotenv": "^6.0.0",
+    "fs": "0.0.1-security",
     "moment": "^2.22.2",
+    "node-cmd": "^3.0.0",
     "node-spotify-api": "^1.0.7",
     "omdb": "^0.8.0",
     "request": "^2.88.0",

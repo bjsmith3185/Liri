@@ -1,0 +1,6 @@
+
+
+concert-this:
+    - break out the artist info from an array to a string
+
+    
