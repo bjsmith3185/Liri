@@ -1,0 +1,28 @@
+{
+  "name": "Liri",
+  "version": "1.0.0",
+  "description": "using node for a search program",
+  "main": "liri.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bjsmith3185/Liri.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bjsmith3185/Liri/issues"
+  },
+  "homepage": "https://github.com/bjsmith3185/Liri#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "moment": "^2.22.2",
+    "node-spotify-api": "^1.0.7",
+    "omdb": "^0.8.0",
+    "request": "^2.88.0",
+    "spotify": "^0.3.0"
+  }
+}
