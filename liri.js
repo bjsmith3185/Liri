@@ -6,7 +6,6 @@ var Spotify = require('node-spotify-api');
 var keys = require("./keys.js");
 var moment = require("moment");
 var fs = require("fs");
-
 var cmd = require('node-cmd');
 
 // first user input -----
@@ -150,6 +149,29 @@ if (operation === "concert-this") {
 
     });
 };
+
+
+// storing all searches to file log.txt -------
+
+var obj = JSON.stringify({
+    [operation] : searchString,
+});
+console.log(obj);
+
+fs.appendFile("log.txt", obj , function(err) {
+
+  // If an error was experienced we say it.
+  if (err) {
+    console.log(err);
+  }
+
+  // If no error is experienced, we'll log the phrase "Content Added" to our node console.
+  else {
+    console.log("Content Added!");
+  }
+
+});
+
 
 
 
