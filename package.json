@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/bjsmith3185/Liri#readme",
   "dependencies": {
+    "chalk": "^2.4.1",
     "cmd": "^0.1.0",
     "dotenv": "^6.0.0",
     "fs": "0.0.1-security",
